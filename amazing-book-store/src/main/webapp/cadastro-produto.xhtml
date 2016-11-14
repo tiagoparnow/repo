@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+	<ui:include src="index.xhtml"/>
+	<p/>
+	<p:layout style="min-width:100%; height:39px;">
+		<p:layoutUnit position="center" >
+        	Cadastrar Produto (Admin)
+    	</p:layoutUnit>
+	</p:layout>
+	<p/>
+	<h:form>
+		<div class="ui-g">
+			<div class="ui-g-6">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel>Código</p:outputLabel>
+					<p:inputNumber id="inputCodigo" value="0" disabled="true"/>
+					
+					<p:outputLabel>Título</p:outputLabel>
+					<p:inputText id="inputTitulo" value="Livro" />
+					
+					<p:outputLabel>Data de Publicação</p:outputLabel>
+					<p:calendar id="inputData" value="#{calendarView.date3}" showOn="button" />
+					
+					<p:outputLabel>Autor</p:outputLabel>
+					<p:inputText id="inputAutor" value="Autor" />
+					
+					<p:outputLabel>Preço</p:outputLabel>
+					<p:inputNumber id="inputPreco" value="0.0" />
+					
+					<p:outputLabel>Quantidade</p:outputLabel>
+					<p:inputNumber id="inputQuantidade" value="0" />
+					
+					<p:outputLabel>Detalhes</p:outputLabel>
+					<p:inputTextarea rows="6" cols="33" />
+				</h:panelGrid>
+			</div>
+			
+			<div class="ui-g-6">
+				<p:fieldset legend="Imagem" style="margin-bottom:20px">
+					<p:graphicImage library="img" name="icon_book.png"/>
+				</p:fieldset>
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" label="Procurar"/>
+			</div>
+			
+			<div class="ui-g-6">
+				<div class="ui-g-1">
+				</div>
+				<div class="ui-g-2">
+					<p:commandButton value="Buscar" id="ajax" actionListener="#{buttonView.buttonAction}" styleClass="ui-priority-primary" />
+				</div>
+	 			<div class="ui-g-2">
+	    			<p:commandButton value="Salvar" id="nonAjax" actionListener="#{buttonView.buttonAction}" ajax="false" />
+	    		</div>
+	 			<div class="ui-g-2">
+	    			<p:commandButton value="Excluir" id="withIcon" actionListener="#{buttonView.buttonAction}" />
+	    		</div>
+			 	<div class="ui-g-2">
+	    			<p:commandButton value="Cancelar" actionListener="#{buttonView.buttonAction}" id="iconOnly" title="Icon Only" />
+				</div>
+			</div>
+    	
+    	</div>
+	</h:form>
+</body> 
+</html>

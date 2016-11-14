@@ -54,15 +54,39 @@
 	</dependency>
 	
 	<dependency>
+    	<groupId>org.hibernate.javax.persistence</groupId>
+    	<artifactId>hibernate-jpa-2.1-api</artifactId>
+    	<version>1.0.0.Final</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-search-orm</artifactId>
+    	<version>5.7.0.Alpha1</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-validator</artifactId>
+    	<version>5.3.2.Final</version>
+	</dependency>
+	
+	<dependency>
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-collections4</artifactId>
     	<version>4.1</version>
 	</dependency>
 	
 	<dependency>
-    	<groupId>org.hibernate.javax.persistence</groupId>
-    	<artifactId>hibernate-jpa-2.1-api</artifactId>
-    	<version>1.0.0.Final</version>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.38</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>hsqldb</groupId>
+    	<artifactId>hsqldb</artifactId>
+    	<version>1.8.0.10</version>
 	</dependency>
 	
   </dependencies>

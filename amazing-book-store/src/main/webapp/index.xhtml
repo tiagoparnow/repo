@@ -6,9 +6,18 @@
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
-	<div style="background-color:#999999">
+	<div style="background-color:#999999; border-style: solid;">
 		<div>
 			<h:graphicImage library="img" name="icon.png"/>
+		</div>
+		<div>
+			<p:menubar>
+				<p:submenu label="Menu">
+					<p:menuitem value="Cadastrar Produto (Admin)" url="#" />
+            		<p:separator />
+            		<p:menuitem value="Livros" url="#" />
+				</p:submenu>
+			</p:menubar>
 		</div>
 	</div>
 </h:head> 

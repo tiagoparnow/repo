@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+	<ui:include src="index.xhtml"/>
+	<p/>
+	<p:layout style="min-width:100%; height:39px;">
+		<p:layoutUnit position="center" >
+        	Livros
+    	</p:layoutUnit>
+	</p:layout>
+	<p/>
+	<h:form>
+
+		<div class="ui-g">
+			
+			<div class="ui-g-3" style="text-align: center;">
+				<p:graphicImage library="img" name="icon_book.png"/>
+			</div>
+			
+			<div class="ui-g-6">
+				<p:link value="Título">
+    				<f:param name="productId" value="10" />
+				</p:link>
+				<p/>
+				<p:outputLabel value="25/10/2016" />
+				<p/>
+				<p:outputLabel value="por " />
+				<p:outputLabel value="Autor" />
+				<p/>
+				<p:separator />
+				<p/>
+				<p/>
+				<p:outputLabel value="Preço " />
+				<span style="font-weight: bold;">
+					<p:outputLabel value="R$ " />
+					<p:outputLabel value="0,00" />
+				</span>
+				<p/>
+				<p:inputTextarea rows="6" cols="50" autoResize="false" />
+			</div>
+			
+			<div class="ui-g-3">
+				<p:layout style="min-width:100px; min-height:50px; background-color:#b3b3b3;">
+					<p:layoutUnit position="center" style="min-width:100px; min-height:300px; background-color:#e6e6e6;">
+        				<div class="ui-g">
+        					<div class="ui-g-1" />
+        					<div class="ui-g-11" style="color: #BB3D3F">
+        						<p:outputLabel value="R$ " />
+								<p:outputLabel value="0,00" />
+        					</div>
+        				</div>
+        				<div class="ui-g" style="margin-top: 10px">
+        					<div class="ui-g-1" />
+							<div class="ui-g-11" >
+								<p:outputLabel value="Em estoque" />
+							</div>
+        				</div>
+        				<div class="ui-g" style="margin-top: 10px">
+        					<div class="ui-g-1" />
+        					<div class="ui-g-11" >
+        						<p:outputLabel value="Quantidade " />
+        						<p:spinner min="1" size="1" />
+        					</div>
+        						
+        				</div>
+        				<div style="margin-top: 50px; text-align: center;">
+        					<p:commandButton value="Adicionar ao carrinho" />
+        				</div>
+    				</p:layoutUnit>
+				</p:layout>
+			</div>
+			
+		</div>
+		
+	</h:form>
+</body> 
+</html>
