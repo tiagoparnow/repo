@@ -18,25 +18,7 @@ public class Item implements Serializable {
 
 	private int quantidade;
 
-	//bi-directional many-to-one association to CarrinhoCompra
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_carrinho_compras")
-	private CarrinhoCompra carrinhoCompra;
-
-	//bi-directional many-to-one association to Livro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_livro")
-	private Livro livro;
-
 	public Item() {
-	}
-
-	public ItemPK getId() {
-		return this.id;
-	}
-
-	public void setId(ItemPK id) {
-		this.id = id;
 	}
 
 	public int getQuantidade() {
@@ -47,20 +29,87 @@ public class Item implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public CarrinhoCompra getCarrinhoCompra() {
-		return this.carrinhoCompra;
+	public ItemPK getId() {
+		return id;
 	}
 
-	public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
-		this.carrinhoCompra = carrinhoCompra;
+	public void setId(ItemPK id) {
+		this.id = id;
 	}
 
-	public Livro getLivro() {
-		return this.livro;
-	}
+	@Embeddable
+	public static class ItemPK implements Serializable {
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
+		private static final long serialVersionUID = 1L;
+		
+		@Column(name="id_item")
+		private int idItem;
+		
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="id_carrinho_compras")
+		private CarrinhoCompra carrinhoCompra;
 
+		//bi-directional many-to-one association to Livro
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="id_livro")
+		private Livro livro;
+
+		public ItemPK() {
+		}
+		public int getIdItem() {
+			return this.idItem;
+		}
+		public void setIdItem(int idItem) {
+			this.idItem = idItem;
+		}
+		
+		public Livro getLivro() {
+			return livro;
+		}
+		public void setLivro(Livro livro) {
+			this.livro = livro;
+		}
+		public CarrinhoCompra getCarrinhoCompra() {
+			return carrinhoCompra;
+		}
+		public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
+			this.carrinhoCompra = carrinhoCompra;
+		}
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((carrinhoCompra == null) ? 0 : carrinhoCompra.hashCode());
+			result = prime * result + idItem;
+			result = prime * result + ((livro == null) ? 0 : livro.hashCode());
+			return result;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ItemPK other = (ItemPK) obj;
+			if (carrinhoCompra == null) {
+				if (other.carrinhoCompra != null)
+					return false;
+			} else if (!carrinhoCompra.equals(other.carrinhoCompra))
+				return false;
+			if (idItem != other.idItem)
+				return false;
+			if (livro == null) {
+				if (other.livro != null)
+					return false;
+			} else if (!livro.equals(other.livro))
+				return false;
+			return true;
+		}
+
+	}
+	
 }

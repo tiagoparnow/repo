@@ -18,7 +18,7 @@ public class Livro implements Serializable {
 
 	@Id
 	@SequenceGenerator(name="LIVRO_IDLIVRO_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LIVRO_IDLIVRO_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="LIVRO_IDLIVRO_GENERATOR")
 	@Column(name="id_livro")
 	private int idLivro;
 
@@ -39,7 +39,7 @@ public class Livro implements Serializable {
 	private BigDecimal valor;
 
 	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="livro")
+	@OneToMany(mappedBy="id.livro")
 	private List<Item> items;
 
 	public Livro() {
@@ -119,14 +119,14 @@ public class Livro implements Serializable {
 
 	public Item addItem(Item item) {
 		getItems().add(item);
-		item.setLivro(this);
+		item.getId().setLivro(this);
 
 		return item;
 	}
 
 	public Item removeItem(Item item) {
 		getItems().remove(item);
-		item.setLivro(null);
+		item.getId().setLivro(null);
 
 		return item;
 	}

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h2 style="text-align: center;">Amazing Book Store</h2>
+</h:head> 
+<body> 
+	<h:form>
+		<div class="ui-g">
+			<div class="ui-g-5" />
+    		<div class="ui-g-2">
+    			<p:fieldset legend="Alterar Senha" style="margin-bottom:20px">
+		            
+		            <div class="ui-g" style="font-size: smaller;">
+		            	<div class="ui-g-12">
+		            		<h:outputLabel style="font-weight: bold;">Nova senha</h:outputLabel>
+		            	</div>
+		            </div>
+		            <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:password id="password1" value="#{passwordView.password5}" match="password2" required="true" size="28" style="font-size: smaller;"/>
+		            	</div>
+		            </div>
+		            
+		            <div class="ui-g" style="font-size: smaller;">
+		            	<div class="ui-g-12">
+		            		<h:outputLabel style="font-weight: bold;">Informe a senha novamente</h:outputLabel>
+		            	</div>
+		            </div>
+		            <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:password id="password2" value="#{passwordView.password5}" required="true" size="28" style="font-size: smaller;"/>
+		            	</div>
+		            </div>
+		            
+		             <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:commandButton value="Confirmar" id="btnCriarConta" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            	</div>
+		            </div>
+	    		</p:fieldset>
+    		</div>
+    		<div class="ui-g-5" />
+    	</div>
+	</h:form>
+</body> 
+</html>

@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
 
 	@Id
 	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario")
 	private int idUsuario;
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h2 style="text-align: center;">Amazing Book Store</h2>
+</h:head> 
+<body> 
+	<h:form>
+		<div class="ui-g">
+			<div class="ui-g-5" />
+    		<div class="ui-g-2">
+    			<p:fieldset legend="Login" style="margin-bottom:20px">
+		            <div class="ui-g" style="font-size: smaller;">
+		            	<div class="ui-g-4">
+		            		<h:outputLabel style="font-weight: bold;">E-mail</h:outputLabel>
+		            	</div>
+		            	<div class="ui-g-4" />
+		            	<div class="ui-g-4" />
+		            </div>
+		            <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<h:inputText value="admin@admin.com" size="28" style="font-size: smaller;"/>
+		            	</div>
+		            </div>
+		            <div class="ui-g" style="font-size: smaller;">
+		            	<div class="ui-g-6">
+		            		<h:outputLabel style="font-weight: bold;">Senha</h:outputLabel>
+		            	</div>
+		            	<div class="ui-g-6">
+		            		<p:link value="Esqueci a senha">
+    							<f:param name="senhaID" value="10" />
+							</p:link>
+		            	</div>
+		            </div>
+		            <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:password id="password" value="123" size="28" style="font-size: smaller;"/>
+		            	</div>
+		            </div>
+		            <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:commandButton value="Fazer Login" id="btnFazerLogin" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            	</div>
+		            </div>
+		             <p />
+		             <p:separator />
+		             <div class="ui-g">
+		            	<div class="ui-g-12">
+		            		<p:commandButton value="Criar Conta" id="btnCriarConta" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            	</div>
+		            </div>
+	    		</p:fieldset>
+    		</div>
+    		<div class="ui-g-5" />
+    	</div>
+	</h:form>
+</body> 
+</html>

@@ -18,7 +18,7 @@ public class CarrinhoCompra implements Serializable {
 
 	@Id
 	@SequenceGenerator(name="CARRINHO_COMPRAS_IDCARRINHOCOMPRAS_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CARRINHO_COMPRAS_IDCARRINHOCOMPRAS_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="CARRINHO_COMPRAS_IDCARRINHOCOMPRAS_GENERATOR")
 	@Column(name="id_carrinho_compras")
 	private int idCarrinhoCompras;
 
@@ -29,7 +29,7 @@ public class CarrinhoCompra implements Serializable {
 	private BigDecimal valorTotal;
 
 	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="carrinhoCompra")
+	@OneToMany(mappedBy="id.carrinhoCompra")
 	private List<Item> items;
 
 	//bi-directional many-to-one association to Usuario
@@ -73,14 +73,14 @@ public class CarrinhoCompra implements Serializable {
 
 	public Item addItem(Item item) {
 		getItems().add(item);
-		item.setCarrinhoCompra(this);
+		item.getId().setCarrinhoCompra(this);
 
 		return item;
 	}
 
 	public Item removeItem(Item item) {
 		getItems().remove(item);
-		item.setCarrinhoCompra(null);
+		item.getId().setCarrinhoCompra(null);
 
 		return item;
 	}

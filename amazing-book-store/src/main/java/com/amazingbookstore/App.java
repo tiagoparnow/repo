@@ -12,7 +12,7 @@ public class App {
         System.out.println( "Hello World!" );
         
         EntityManagerFactory factory = Persistence.
-                createEntityManagerFactory("amazingbooksotreUnit");
+                createEntityManagerFactory("unit_app");
 
           factory.close();
     }
