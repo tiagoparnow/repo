@@ -1,35 +1,58 @@
 package com.amazingbookstore.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.NoResultException;
 
 import com.amazingbookstore.model.Usuario;
-import com.amazingbookstore.model.Usuario_;
-import com.amazingbookstore.repository.EntityRepository;
-import com.amazingbookstore.repository.Repository;
 import com.amazingbookstore.util.Constantes;
 
-@Repository(entityManager = "amazingBookStore")
-public class UsuarioDAO extends EntityRepository<Usuario, Integer> implements Constantes {
+public class UsuarioDAO extends GenericDAO<Usuario> implements Constantes {
+	
+	private static final long serialVersionUID = 1L;
 
-	public Usuario getUsuario(String eMail, String senha) {
-		final CriteriaQuery<Usuario> query = super.cb().createQuery(Usuario.class);
-		final Root<Usuario> usuario = query.from(Usuario.class);
-		final List<Predicate> where = new ArrayList<>();
-		
-		where.add(super.cb().equal(usuario.get(Usuario_.eMail), eMail));
-		where.add(super.cb().equal(usuario.get(Usuario_.senha), senha));
-		
-		query.where(where.stream().toArray(Predicate[]::new));
-		
-		return this.findOne(query);
-		
-		
+	public UsuarioDAO() {
+		super(Usuario.class);
 	}
 
+	public Usuario findByEmail(String email){
+		try {
+			return createNamedQuery(Usuario.FIND_BY_EMAIL)
+					 .setParameter("email", email)
+					 .getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public Usuario findByEmailSenha(String email, String senha){
+		try {
+			return createNamedQuery(Usuario.FIND_BY_EMAIL_SENHA)
+					 .setParameter("email", email)
+					 .setParameter("senha", senha)
+					 .getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	 
+	public boolean inserirUsuario(Usuario usuario) {
+        try {
+              save(usuario);
+              return true;
+        } catch (Exception e) {
+              e.printStackTrace();
+              return false;
+        }
+	}
+	
+	public boolean alterarUsuario(Usuario usuario) {
+        try {
+              update(usuario);
+              return true;
+        } catch (Exception e) {
+              e.printStackTrace();
+              return false;
+        }
+	}
+	
 
 }

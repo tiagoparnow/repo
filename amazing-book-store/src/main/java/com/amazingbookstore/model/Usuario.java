@@ -2,6 +2,8 @@ package com.amazingbookstore.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+
 import java.util.Date;
 
 
@@ -10,16 +12,32 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@NamedQueries({ @NamedQuery(name="Usuario.findAll", query=" SELECT u       "
+														+ " FROM Usuario u "),
+				@NamedQuery(name="Usuario.findByEmailSenha", query = " SELECT u FROM Usuario u "
+																   + " WHERE u.eMail = :email  "
+																   + " AND u.senha = :senha    "),
+				@NamedQuery(name="Usuario.findByEmail", query = " SELECT u FROM Usuario u "
+						   									  + " WHERE u.eMail = :email  "),
+			  })
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Transient
+	public static final String FIND_ALL = "Usuario.findAll";
+	@Transient
+	public static final String FIND_BY_EMAIL_SENHA = "Usuario.findByEmailSenha";
+	@Transient
+	public static final String FIND_BY_EMAIL = "Usuario.findByEmail";
+	
 	@Id
 	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR" )
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario")
 	private int idUsuario;
 
+	private String nome;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="data_inclusao")
 	private Date dataInclusao;
@@ -45,6 +63,14 @@ public class Usuario implements Serializable {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Date getDataInclusao() {
@@ -86,5 +112,13 @@ public class Usuario implements Serializable {
 	public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
 		this.carrinhoCompra = carrinhoCompra;
 	}
-
+	
+	public boolean isAdmin(){
+        return Role.ADMIN.equals(perfil);
+    }
+    
+    public boolean isUser(){
+        return Role.USER.equals(perfil);
+    }
+	
 }

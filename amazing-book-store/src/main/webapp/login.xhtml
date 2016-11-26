@@ -15,10 +15,12 @@
 	</div>
 </h:head> 
 <body> 
-	<h:form>
+	<h:form id="login">
 		<div class="ui-g">
 			<div class="ui-g-4" />
     		<div class="ui-g-4">
+    			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+    			
     			<p:fieldset legend="Login" style="margin-bottom:20px">
 		            <div class="ui-g" style="font-size: smaller;">
 		            	<div class="ui-g-4">
@@ -29,7 +31,7 @@
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<h:inputText value="admin@admin.com" size="43" style="font-size: smaller;"/>
+		            		<h:inputText value="#{loginController.email}" required="true" size="43" style="font-size: smaller;" label="E-mail"/>
 		            	</div>
 		            </div>
 		            <div class="ui-g" style="font-size: smaller;">
@@ -37,26 +39,26 @@
 		            		<h:outputLabel style="font-weight: bold;">Senha</h:outputLabel>
 		            	</div>
 		            	<div class="ui-g-6" style="text-align: right;">
-		            		<p:link value="Esqueci a senha">
-    							<f:param name="senhaID" value="10" />
-							</p:link>
+		            		<p:commandLink id="link" action="#{loginController.esquecerSenha()}">
+		            			<h:outputText value="Esqueci a senha" />
+		            		</p:commandLink>
 		            	</div>
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:password id="password" value="123" size="43" style="font-size: smaller;"/>
+		            		<p:password id="password" value="#{loginController.senha}" size="43" style="font-size: smaller;" label="Senha"/>
 		            	</div>
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:commandButton value="Fazer Login" id="btnFazerLogin" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            		<p:commandButton value="Fazer Login" id="btnFazerLogin" action="#{loginController.doLogin()}" style="width:100%; font-size: smaller;"/>
 		            	</div>
 		            </div>
 		             <p />
 		             <p:separator />
 		             <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:commandButton value="Criar Conta" id="btnCriarConta" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            		<p:commandButton value="Criar Conta" id="btnCriarConta" action="#{loginController.criarNovaConta()}" ajax="false" style="width:100%; font-size: smaller;"/>
 		            	</div>
 		            </div>
 	    		</p:fieldset>

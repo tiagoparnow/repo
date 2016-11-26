@@ -19,6 +19,8 @@
 		<div class="ui-g">
 			<div class="ui-g-4" />
     		<div class="ui-g-4">
+    			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+    			
     			<p:fieldset legend="Nova Conta" style="margin-bottom:20px">
 		            <div class="ui-g" style="font-size: smaller;">
 		            	<div class="ui-g-12">
@@ -27,7 +29,9 @@
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<h:inputText value="Tiago" size="43" style="font-size: smaller;"/>
+		            		<h:inputText  value="#{usuarioController.user.nome}" size="43" style="font-size: smaller;" required="true" label="Nome">
+		            			<f:validateLength minimum="2" />
+		            		</h:inputText>
 		            	</div>
 		            </div>
 		            
@@ -38,7 +42,9 @@
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<h:inputText value="admin@admin.com" size="43" style="font-size: smaller;"/>
+		            		<h:inputText id="email" value="#{usuarioController.user.EMail}" required="true" size="43" style="font-size: smaller;">
+		            			<f:validator validatorId="custom.emailValidator" />
+		            		</h:inputText>
 		            	</div>
 		            </div>
 		            
@@ -49,7 +55,7 @@
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:password id="password1" value="#{passwordView.password5}" match="password2" required="true" size="43" style="font-size: smaller;"/>
+		            		<p:password id="senha" value="#{usuarioController.user.senha}" match="repetirSenha" required="true" size="43" style="font-size: smaller;" label="Senha"/>
 		            	</div>
 		            </div>
 		            
@@ -60,13 +66,13 @@
 		            </div>
 		            <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:password id="password2" value="#{passwordView.password5}" required="true" size="43" style="font-size: smaller;"/>
+		            		<p:password id="repetirSenha" value="#{usuarioController.user.senha}" required="true" size="43" style="font-size: smaller;" label="Informe a senha novamente"/>
 		            	</div>
 		            </div>
 		            
 		             <div class="ui-g">
 		            	<div class="ui-g-12">
-		            		<p:commandButton value="Criar Conta" id="btnCriarConta" actionListener="#{buttonView.buttonAction}" ajax="false" style="width:100%; font-size: smaller;"/>
+		            		<p:commandButton value="Criar Conta" id="btnCriarConta" action="#{usuarioController.criarConta()}" style="width:100%; font-size: smaller;"/>
 		            	</div>
 		            </div>
 	    		</p:fieldset>
@@ -74,5 +80,6 @@
     		<div class="ui-g-4" />
     	</div>
 	</h:form>
+	
 </body> 
 </html>
