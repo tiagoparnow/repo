@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
 	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR" )
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario")
-	private int idUsuario;
+	private Integer idUsuario;
 
 	private String nome;
 	
@@ -57,11 +57,11 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
-	public int getIdUsuario() {
+	public Integer getIdUsuario() {
 		return this.idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

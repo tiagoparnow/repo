@@ -9,8 +9,6 @@ import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import com.amazingbookstore.dao.UsuarioDAO;
 import com.amazingbookstore.model.Role;
@@ -23,9 +21,6 @@ public class UsuarioController extends AbstractController{
     private Usuario user;
 
     public UsuarioController() {
-    	FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		user = (Usuario) request.getSession().getAttribute("user");
     }
     
     public Usuario getUser() {
@@ -46,7 +41,6 @@ public class UsuarioController extends AbstractController{
     }
     
     public String criarConta() {
-    	user = new Usuario();
     	user.setDataInclusao(new Date());
     	user.setPerfil(Role.USER.toString());
     	if (!new UsuarioDAO().inserirUsuario(user)) {

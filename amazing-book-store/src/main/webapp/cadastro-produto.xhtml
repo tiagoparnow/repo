@@ -11,35 +11,45 @@
 	<p/>
 	<p:layout style="min-width:100%; height:39px;">
 		<p:layoutUnit position="center" >
-        	Cadastrar Produto (Admin)
+        	Cadastrar Produto
     	</p:layoutUnit>
 	</p:layout>
 	<p/>
-	<h:form>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="false" sticky="true" />
+		  
 		<div class="ui-g">
 			<div class="ui-g-6">
-				<h:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel>Código</p:outputLabel>
-					<p:inputNumber id="inputCodigo" value="0" disabled="true"/>
-					
-					<p:outputLabel>Título</p:outputLabel>
-					<p:inputText id="inputTitulo" value="Livro" />
-					
-					<p:outputLabel>Data de Publicação</p:outputLabel>
-					<p:calendar id="inputData" value="#{calendarView.date3}" showOn="button" />
-					
-					<p:outputLabel>Autor</p:outputLabel>
-					<p:inputText id="inputAutor" value="Autor" />
-					
-					<p:outputLabel>Preço</p:outputLabel>
-					<p:inputNumber id="inputPreco" value="0.0" />
-					
-					<p:outputLabel>Quantidade</p:outputLabel>
-					<p:inputNumber id="inputQuantidade" value="0" />
-					
-					<p:outputLabel>Detalhes</p:outputLabel>
-					<p:inputTextarea rows="6" cols="33" />
-				</h:panelGrid>
+				<p:panel id="panel">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel>Código</p:outputLabel>
+						<p:inputNumber id="inputCodigo" value="#{produtoController.livro.idLivro}" label="Código" />
+						
+						<p:outputLabel>Título</p:outputLabel>
+						<p:inputText id="inputTitulo" value="#{produtoController.livro.titulo}"  label="Título">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+						
+						<p:outputLabel>Data de Publicação</p:outputLabel>
+						<p:calendar id="inputData" value="#{produtoController.livro.dataPublicacao}" showOn="button"  label="Data de Publicação"/>
+						
+						<p:outputLabel>Autor</p:outputLabel>
+						<p:inputText id="inputAutor" value="#{produtoController.livro.autor}"  label="Autor">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+						
+						<p:outputLabel>Preço</p:outputLabel>
+						<p:inputNumber id="inputPreco" value="#{produtoController.livro.valor}" minValue="0" label="Preço"/>
+						
+						<p:outputLabel>Quantidade</p:outputLabel>
+						<p:inputNumber id="inputQuantidade" value="#{produtoController.livro.quantidade}"  minValue="0" label="Quantidade"/>
+						
+						<p:outputLabel>Detalhes</p:outputLabel>
+						<p:inputTextarea rows="6" cols="33" value="#{produtoController.livro.detalhes}"  label="Detalhes">
+							<f:validateLength minimum="2" />
+						</p:inputTextarea>
+					</h:panelGrid>
+				</p:panel>
 			</div>
 			
 			<div class="ui-g-6">
@@ -53,20 +63,62 @@
 				<div class="ui-g-1">
 				</div>
 				<div class="ui-g-2">
-					<p:commandButton value="Buscar" id="ajax" actionListener="#{buttonView.buttonAction}" styleClass="ui-priority-primary" />
+					<p:commandButton value="Buscar" id="btnBuscar" styleClass="ui-priority-primary" onclick="PF('dlg').show();">
+						
+					</p:commandButton>
+ 
+    				<p:commandButton value="Select Car" icon="ui-icon-extlink" actionListener="#{produtoController.escolherLivro}" ajax="false" >
+        				<p:ajax event="dialogReturn" listener="#{produtoController.onLivroChosen}" update="growl" />
+    				</p:commandButton>
 				</div>
 	 			<div class="ui-g-2">
-	    			<p:commandButton value="Salvar" id="nonAjax" actionListener="#{buttonView.buttonAction}" ajax="false" />
+	    			<p:commandButton value="Salvar" id="btnSalvar" update="panel" process="@this" action="#{produtoController.manterLivro}" ajax="false" />
 	    		</div>
 	 			<div class="ui-g-2">
-	    			<p:commandButton value="Excluir" id="withIcon" actionListener="#{buttonView.buttonAction}" />
+	    			<p:commandButton value="Excluir" id="btnExcluir" update="panel" actionListener="#{produtoController.removerLivro}" ajax="false"/>
 	    		</div>
 			 	<div class="ui-g-2">
-	    			<p:commandButton value="Cancelar" actionListener="#{buttonView.buttonAction}" id="iconOnly" title="Icon Only" />
+				 	<p:commandButton value="Cancelar" update="panel" process="@this" >
+	                	<p:resetInput target="panel" />
+	            	</p:commandButton>
 				</div>
 			</div>
-    	
+    		
     	</div>
+    	<p:dialog widgetVar="dlg" resizable="false" header="Seleção de Produto">
+    			<p:ajax event="close" update="growl" listener="#{livroController.handleClose}" />
+    			<h:panelGrid columns="2" cellpadding="5">
+    				<p:outputLabel>Código</p:outputLabel>
+					<p:inputNumber id="inputSelectCodigo" value="#{livroController.codigo}" label="Código" />
+					
+					<p:outputLabel>Título</p:outputLabel>
+					<p:inputText id="inputSelectTitulo" value="#{livroController.titulo}" label="Título" />
+					
+    			</h:panelGrid>
+    			
+    			<p:dataTable var="livro" value="#{livroController.livros}">
+				    <p:column headerText="Título">
+				        <h:outputText value="#{livro.titulo}" />
+				    </p:column>
+					 
+				    <p:column headerText="Código">
+				        <h:outputText value="#{livro.idLivro}" />
+				    </p:column>
+					 
+				    <p:column headerText="Autor">
+				        <h:outputText value="#{livro.autor}" />
+				    </p:column>
+					 
+				    <p:column headerText="Preço">
+				        <h:outputText value="#{livro.valor}" />
+				    </p:column>
+				</p:dataTable>
+				
+				<f:facet name="footer">
+                	<p:commandButton value="Consultar"  action="#{livroController.listar}"/>
+            	</f:facet>  
+			</p:dialog>
 	</h:form>
+	
 </body> 
 </html>

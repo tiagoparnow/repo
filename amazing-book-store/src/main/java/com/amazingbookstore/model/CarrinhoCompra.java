@@ -29,10 +29,10 @@ public class CarrinhoCompra implements Serializable {
 	@SequenceGenerator(name="CARRINHO_COMPRAS_IDCARRINHOCOMPRAS_GENERATOR" )
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="CARRINHO_COMPRAS_IDCARRINHOCOMPRAS_GENERATOR")
 	@Column(name="id_carrinho_compras")
-	private int idCarrinhoCompras;
+	private Integer idCarrinhoCompras;
 
 	@Column(name="quantidade_total")
-	private int quantidadeTotal;
+	private Integer quantidadeTotal;
 
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
@@ -48,19 +48,19 @@ public class CarrinhoCompra implements Serializable {
 	public CarrinhoCompra() {
 	}
 
-	public int getIdCarrinhoCompras() {
+	public Integer getIdCarrinhoCompras() {
 		return this.idCarrinhoCompras;
 	}
 
-	public void setIdCarrinhoCompras(int idCarrinhoCompras) {
+	public void setIdCarrinhoCompras(Integer idCarrinhoCompras) {
 		this.idCarrinhoCompras = idCarrinhoCompras;
 	}
 
-	public int getQuantidadeTotal() {
+	public Integer getQuantidadeTotal() {
 		return this.quantidadeTotal;
 	}
 
-	public void setQuantidadeTotal(int quantidadeTotal) {
+	public void setQuantidadeTotal(Integer quantidadeTotal) {
 		this.quantidadeTotal = quantidadeTotal;
 	}
 

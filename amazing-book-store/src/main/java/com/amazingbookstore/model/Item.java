@@ -16,16 +16,16 @@ public class Item implements Serializable {
 	@EmbeddedId
 	private ItemPK id;
 
-	private int quantidade;
+	private Integer quantidade;
 
 	public Item() {
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -43,7 +43,7 @@ public class Item implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		@Column(name="id_item")
-		private int idItem;
+		private Integer idItem;
 		
 		@ManyToOne(fetch=FetchType.LAZY)
 		@JoinColumn(name="id_carrinho_compras")
@@ -56,10 +56,10 @@ public class Item implements Serializable {
 
 		public ItemPK() {
 		}
-		public int getIdItem() {
+		public Integer getIdItem() {
 			return this.idItem;
 		}
-		public void setIdItem(int idItem) {
+		public void setIdItem(Integer idItem) {
 			this.idItem = idItem;
 		}
 		
@@ -78,8 +78,8 @@ public class Item implements Serializable {
 		
 		@Override
 		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
+			final Integer prime = 31;
+			Integer result = 1;
 			result = prime * result + ((carrinhoCompra == null) ? 0 : carrinhoCompra.hashCode());
 			result = prime * result + idItem;
 			result = prime * result + ((livro == null) ? 0 : livro.hashCode());

@@ -81,10 +81,10 @@ public class LoginController extends AbstractController {
 			// usuarioLogado. Depois de tudo, mandamos o usuário
 			// para a página index.xhtml
 			setLoggedIn(true);
-			usuarioController.setUser(user);
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 			request.getSession().setAttribute("user", user);
+			usuarioController.setUser(user);
 			return "index.xhtml?faces-redirect=true";
 		}
 
@@ -98,18 +98,14 @@ public class LoginController extends AbstractController {
 			displayErrorMessage("Não encontramos uma conta associada a este endereço de e-mail");
 			return null;
 		}
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		request.getSession().setAttribute("user", user);
+		usuarioController.setUser(user);
 		return "alterar-senha.xhtml?faces-redirect=true";
 	}
 	
 	public String criarNovaConta() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 		Usuario user = new Usuario();
 		user.setEMail(email);
-		request.getSession().setAttribute("user", user);
+		usuarioController.setUser(user);
 		return "criar-conta.xhtml?faces-redirect=true";
 	}
 	

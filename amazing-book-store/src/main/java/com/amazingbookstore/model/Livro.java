@@ -12,15 +12,32 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Livro.findAll", query="SELECT l FROM Livro l")
+@NamedQueries({ @NamedQuery(name="Livro.findAll", query=" SELECT l "
+													  + " FROM Livro l "),
+				@NamedQuery(name="Livro.findByIdTitulo", query=" SELECT l "
+													  + " FROM Livro l "
+													  + " WHERE l.idLivro = :idLivro "
+													  + " AND l.titulo LIKE :titulo "),
+				@NamedQuery(name="Livro.findByTitulo", query=" SELECT l "
+						  + " FROM Livro l "
+						  + " WHERE l.titulo LIKE :titulo "),
+			  })
+
 public class Livro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Transient
+	public static final String FIND_ALL = "Livro.findAll";
+	@Transient
+	public static final String FIND_BY_ID_TITULO = "Livro.findByIdTitulo";
+	@Transient
+	public static final String FIND_BY_TITULO = "Livro.findByTitulo";
+	
 	@Id
 	@SequenceGenerator(name="LIVRO_IDLIVRO_GENERATOR" )
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="LIVRO_IDLIVRO_GENERATOR")
 	@Column(name="id_livro")
-	private int idLivro;
+	private Integer idLivro;
 
 	private String autor;
 
@@ -32,7 +49,7 @@ public class Livro implements Serializable {
 
 	private String imagem;
 
-	private int quantidade;
+	private Integer quantidade;
 
 	private String titulo;
 
@@ -45,11 +62,11 @@ public class Livro implements Serializable {
 	public Livro() {
 	}
 
-	public int getIdLivro() {
+	public Integer getIdLivro() {
 		return this.idLivro;
 	}
 
-	public void setIdLivro(int idLivro) {
+	public void setIdLivro(Integer idLivro) {
 		this.idLivro = idLivro;
 	}
 
@@ -85,11 +102,11 @@ public class Livro implements Serializable {
 		this.imagem = imagem;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
