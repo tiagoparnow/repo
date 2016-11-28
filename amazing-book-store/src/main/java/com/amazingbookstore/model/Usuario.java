@@ -50,7 +50,7 @@ public class Usuario implements Serializable {
 	private String senha;
 
 	//bi-directional many-to-one association to CarrinhoCompra
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_carrinho_compras")
 	private CarrinhoCompra carrinhoCompra;
 
