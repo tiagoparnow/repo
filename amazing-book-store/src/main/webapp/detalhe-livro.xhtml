@@ -24,38 +24,36 @@
 			</div>
 			
 			<div class="ui-g-6">
-				<p:link value="Título">
-    				<f:param name="productId" value="10" />
-				</p:link>
+				<p:outputLabel value="#{livroDetalheController.livro.titulo}" style="font-weight: bold" />
 				<p/>
-				<p:outputLabel value="25/10/2016" />
+				<p:outputLabel value="#{livroDetalheController.livro.dataPublicacao}" />
 				<p/>
-				<p:outputLabel value="por " />
-				<p:outputLabel value="Autor" />
+				<p:outputLabel value="por " style="font-size: smaller;"/>
+				<p:outputLabel value="#{livroDetalheController.livro.autor}" style="font-size: smaller;"/>
 				<p/>
 				<p:separator />
 				<p/>
 				<p/>
-				<p:outputLabel value="Preço " />
-				<span style="font-weight: bold;">
+				<p:outputLabel value="Preço " style="font-size: smaller;"/>
+				<span style="color:red;">
 					<p:outputLabel value="R$ " />
-					<p:outputLabel value="0,00" />
+					<p:outputLabel value="#{livroDetalheController.livro.valor}" />
 				</span>
 				<p/>
-				<p:inputTextarea rows="6" cols="50" autoResize="false" />
+				<p:inputTextarea rows="6" cols="50" autoResize="false" value="#{livroDetalheController.livro.detalhes}"/>
 			</div>
 			
 			<div class="ui-g-3">
-				<p:layout style="min-width:100px; min-height:50px; background-color:#b3b3b3;">
+				<p:layout style="min-width:100px; min-height:50px; background-color:#b3b3b3;" rendered="#{livroDetalheController.livro.quantidade > 0}">
 					<p:layoutUnit position="center" style="min-width:100px; min-height:300px; background-color:#e6e6e6;">
         				<div class="ui-g">
         					<div class="ui-g-1" />
         					<div class="ui-g-11" style="color: #BB3D3F">
         						<p:outputLabel value="R$ " />
-								<p:outputLabel value="0,00" />
+								<p:outputLabel value="#{livroDetalheController.livro.valor}" />
         					</div>
         				</div>
-        				<div class="ui-g" style="margin-top: 10px">
+        				<div class="ui-g" style="margin-top: 10px; color:green;">
         					<div class="ui-g-1" />
 							<div class="ui-g-11" >
 								<p:outputLabel value="Em estoque" />
@@ -65,12 +63,23 @@
         					<div class="ui-g-1" />
         					<div class="ui-g-11" >
         						<p:outputLabel value="Quantidade " />
-        						<p:spinner min="1" size="1" />
+        						<p:spinner min="1" size="1" max="#{livroDetalheController.livro.quantidade}" value="#{livroDetalheController.quantidade}"/>
         					</div>
         						
         				</div>
         				<div style="margin-top: 50px; text-align: center;">
         					<p:commandButton value="Adicionar ao carrinho" />
+        				</div>
+    				</p:layoutUnit>
+				</p:layout>
+				
+				<p:layout style="min-width:100px; min-height:50px; background-color:#b3b3b3;" rendered="#{livroDetalheController.livro.quantidade == 0}">
+					<p:layoutUnit position="center" style="min-width:100px; min-height:50px; background-color:#e6e6e6;">
+        				<div class="ui-g">
+        					<div class="ui-g-1" />
+        					<div class="ui-g-11" style="color: #BB3D3F">
+        						<p:outputLabel value="Não disponível." />
+        					</div>
         				</div>
     				</p:layoutUnit>
 				</p:layout>

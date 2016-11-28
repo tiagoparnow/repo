@@ -16,6 +16,37 @@
 	</p:layout>
 	<p/>
 	<h:form>
+		<p:dataScroller value="#{livroController.livros}" var="livro" chunkSize="10">
+	        <f:facet name="header">
+	            Mova o cursor para carregar mais livros
+	        </f:facet>
+	 
+	        <f:facet name="loader">
+	            <p:commandButton type="button" value="Mais" icon="ui-icon-circle-triangle-s"/>
+	        </f:facet>
+	 		
+	 		<div class="ui-g">
+	 			<div class="ui-g-4" >
+	 				 <p:graphicImage library="img" name="icon_book.png"/> 
+	 			</div>
+	 			<div class="ui-g-8" style="text-align: left;">
+	 				<h:panelGrid columns="2" cellpadding="5">
+                    	<p:commandLink id="linkDetalhe" action="#{livroController.detalharLivro(livro)}">
+                    		<h:outputText value="#{livro.titulo}" style="font-weight: bold"/>
+                    	</p:commandLink>
+                    	<h:outputText value="#{livro.dataPublicacao}" style="font-size: smaller;"/>
+ 
+                    	<h:outputText value="por #{livro.autor}" style="font-size: smaller;"/>
+                    	<h:outputText value=""/>
+ 
+                    	<h:outputText value="R$ #{livro.valor}" style="font-weight: bold; color:red;"/>
+                    	<h:outputText value=""/>
+                	</h:panelGrid>
+	 			</div>
+	 		</div>
+	 		<p:separator />
+	    </p:dataScroller>
+	    
 	</h:form>
 </body> 
 </html>

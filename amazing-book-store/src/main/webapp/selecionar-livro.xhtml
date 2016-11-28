@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+        <title>Livros</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+     
+    <h:body>
+        <h:form>
+            <p:dataTable var="livro" value="#{livroController.livros}">
+                <p:column headerText="Título">
+				        <h:outputText value="#{livro.titulo}" />
+				   </p:column>
+					 
+				    <p:column headerText="Código">
+				        <h:outputText value="#{livro.idLivro}" />
+				    </p:column>
+					 
+				    <p:column headerText="Autor">
+				        <h:outputText value="#{livro.autor}" />
+				    </p:column>
+					 
+				    <p:column headerText="Preço">
+				        <h:outputText value="#{livro.valor}" />
+				    </p:column>
+				    <p:column style="width:32px;text-align: center">
+                    	<p:commandButton  actionListener="#{livroController.selecionarLivroFromDialog(livro)}" />
+                	</p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

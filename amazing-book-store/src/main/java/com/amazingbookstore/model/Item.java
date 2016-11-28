@@ -9,10 +9,15 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
+@NamedQueries({
+				@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i"),
+			  })
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Transient
+	public static final String FIND_ALL = "Item.findAll";
+	
 	@EmbeddedId
 	private ItemPK id;
 
