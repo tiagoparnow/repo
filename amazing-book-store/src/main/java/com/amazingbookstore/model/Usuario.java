@@ -12,6 +12,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name ="usuario", schema="site_mysql")
 @NamedQueries({ @NamedQuery(name="Usuario.findAll", query=" SELECT u       "
 														+ " FROM Usuario u "),
 				@NamedQuery(name="Usuario.findByEmailSenha", query = " SELECT u FROM Usuario u "
@@ -114,7 +115,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public boolean isAdmin(){
-        return Role.ADMIN.equals(perfil);
+        return Role.ADMIN.toString().equalsIgnoreCase(perfil);
     }
     
     public boolean isUser(){

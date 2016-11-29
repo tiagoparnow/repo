@@ -10,4 +10,13 @@ public class ItemDAO extends GenericDAO<Item> {
 		super(Item.class);
 	}
 	
+	public boolean inserirItem(Item item) {
+        try {
+              save(item);
+              return true;
+        } catch (Exception e) {
+              e.printStackTrace();
+              return false;
+        }
+	}
 }

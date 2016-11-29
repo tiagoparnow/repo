@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name="carrinho_compras")
+@Table(name="carrinho_compras", schema="site_mysql")
 @NamedQuery(name="CarrinhoCompra.findAll", query="SELECT c FROM CarrinhoCompra c")
 public class CarrinhoCompra implements Serializable {
 	private static final long serialVersionUID = 1L;

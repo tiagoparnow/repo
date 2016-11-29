@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name ="item", schema="site_mysql")
 @NamedQueries({
 				@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i"),
 			  })
@@ -47,6 +48,8 @@ public class Item implements Serializable {
 
 		private static final long serialVersionUID = 1L;
 		
+		@SequenceGenerator(name="ITEM_IDITEM_GENERATOR" )
+		@GeneratedValue(strategy=GenerationType.AUTO, generator="ITEM_IDITEM_GENERATOR")
 		@Column(name="id_item")
 		private Integer idItem;
 		

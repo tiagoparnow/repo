@@ -24,6 +24,56 @@
 	</div>
 	<p:separator />
 	<h:form>
+		<p:dataScroller value="#{carrinhoComprasController.carrinho.items}" var="item" chunkSize="10" mode="inline" scrollHeight="500">
+			<f:facet name="header">
+	            Mova o cursor para carregar mais livros
+	        </f:facet>
+	        
+	        <div class="ui-g">
+	        	<div class="ui-g-4" >
+	 				 <p:graphicImage library="img" name="icon_book.png"/> 
+	 			</div>
+				<div class="ui-g-4" style="text-align: left;">
+	 				<h:panelGrid columns="1" cellpadding="5">
+                    	<p:commandLink id="linkDetalhe" action="#{livroController.detalharLivro(item.id.livro)}">
+                    		<h:outputText value="#{item.id.livro.titulo}" style="font-weight: bold"/>
+                    	</p:commandLink>
+ 
+                    	<h:outputText value="por #{item.id.livro.autor}" style="font-size: smaller;"/>
+                    	<h:outputText value=""/>
+ 
+                    	<p:commandLink id="linkExcluir" actionListener="#{carrinhoComprasController.excluirItem(item)}" value="Excluir" ajax="false"/>
+                	</h:panelGrid>
+	 			</div>
+	 			<div class="ui-g-4" style="text-align: center;">
+	 				<div class="ui-g">
+	 					<div class="ui-g-6" >
+	 						<span style="color:red;">
+								<p:outputLabel value="R$ " />
+								<p:outputLabel value="#{item.id.livro.valor}" />
+							</span>
+	 					</div>
+	 					<div class="ui-g-6">
+	 						<p:spinner value="#{item.id.livro.quantidade}" size="2" />
+	 					</div>
+	 				</div>
+	 				
+	 			</div>
+	        </div>
+	        <p:separator />	 
+		</p:dataScroller>
+		
+		<div class="ui-g">
+			<div class="ui-g-8" />
+			<div class="ui-g-4" style="text-align: center;">
+				<p:outputLabel value="Subtotal (#{carrinhoComprasController.carrinho.quantidadeTotal} itens): " />
+				<span style="color:red;">
+					<p:outputLabel value="R$ " />
+					<p:outputLabel value="#{carrinhoComprasController.carrinho.valorTotal}" />
+				</span>
+			</div>
+		</div>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 	</h:form>
 </body> 
 </html>

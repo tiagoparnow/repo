@@ -49,6 +49,7 @@ abstract class GenericDAO<T> implements Serializable {
         	JPAUtil.getEntityManager().getTransaction().rollback();
             throw new RuntimeException(e.getMessage());
         }
+    	
     	return entity;
     }
 

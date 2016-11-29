@@ -1,10 +1,13 @@
 package com.amazingbookstore.controller;
 
+import java.math.BigDecimal;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.amazingbookstore.dao.CarrinhoCompraDAO;
+import com.amazingbookstore.dao.ItemDAO;
 import com.amazingbookstore.dao.UsuarioDAO;
 import com.amazingbookstore.model.CarrinhoCompra;
 import com.amazingbookstore.model.Item;
@@ -44,7 +47,10 @@ public class LivroDetalheController extends AbstractController {
 	public void adicionarCarrinho() {
 		if (usuarioController != null && usuarioController.getUser() != null
 				&& usuarioController.getUser().getCarrinhoCompra() == null) {
-			usuarioController.getUser().setCarrinhoCompra(new CarrinhoCompraDAO().inserirCarrinhoo(new CarrinhoCompra()));
+			CarrinhoCompra carrinho = new CarrinhoCompra();
+			carrinho.setQuantidadeTotal(0);
+			carrinho.setValorTotal(BigDecimal.ZERO);
+			usuarioController.getUser().setCarrinhoCompra(new CarrinhoCompraDAO().inserirCarrinho(carrinho));
 			boolean atualizar = new UsuarioDAO().alterarUsuario(usuarioController.getUser());
 			if (!atualizar) {
 				displayErrorMessage("Ocorreu erro ao atualizar o usuário");
@@ -58,7 +64,26 @@ public class LivroDetalheController extends AbstractController {
 		
 		Item item = new Item();
 		item.setQuantidade(quantidade);
+		item.setId(itemPK);
 		
+		if(!new ItemDAO().inserirItem(item)) {
+			displayErrorMessage("Erro ao adicionar livro ao carrinho");
+			return;
+		}
+		
+		if (usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() == 0) {
+			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(quantidade);
+			usuarioController.getUser().getCarrinhoCompra().setValorTotal(livro.getValor().multiply(new BigDecimal(quantidade)));
+		} else {
+			Integer quantidadeTotal = usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() + quantidade;
+			BigDecimal valorTotal = livro.getValor().multiply(new BigDecimal(quantidade));
+			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(quantidadeTotal);
+			usuarioController.getUser().getCarrinhoCompra().setValorTotal(usuarioController.getUser().getCarrinhoCompra().getValorTotal().add(valorTotal));
+		}
+		
+		new CarrinhoCompraDAO().alterarCarrinho(usuarioController.getUser().getCarrinhoCompra());
+		
+		displayInfoMessage("Livro adicionado ao carrinho");
 	}
 
 }

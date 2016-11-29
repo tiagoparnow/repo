@@ -12,6 +12,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name ="livro", schema="site_mysql")
 @NamedQueries({ @NamedQuery(name="Livro.findAll", query=" SELECT l "
 													  + " FROM Livro l "),
 				@NamedQuery(name="Livro.findByIdTitulo", query=" SELECT l "

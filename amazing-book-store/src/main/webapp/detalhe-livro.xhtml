@@ -63,12 +63,12 @@
         					<div class="ui-g-1" />
         					<div class="ui-g-11" >
         						<p:outputLabel value="Quantidade " />
-        						<p:spinner min="1" size="1" max="#{livroDetalheController.livro.quantidade}" value="#{livroDetalheController.quantidade}"/>
+        						<p:spinner min="1" size="2" max="#{livroDetalheController.livro.quantidade}" value="#{livroDetalheController.quantidade}"/>
         					</div>
         						
         				</div>
         				<div style="margin-top: 50px; text-align: center;">
-        					<p:commandButton value="Adicionar ao carrinho" />
+        					<p:commandButton value="Adicionar ao carrinho" actionListener="#{livroDetalheController.adicionarCarrinho()}" ajax="false"/>
         				</div>
     				</p:layoutUnit>
 				</p:layout>
@@ -86,7 +86,7 @@
 			</div>
 			
 		</div>
-		
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 	</h:form>
 </body> 
 </html>

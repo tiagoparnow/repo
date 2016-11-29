@@ -10,9 +10,19 @@ public class CarrinhoCompraDAO extends GenericDAO<CarrinhoCompra> {
 		super(CarrinhoCompra.class);
 	}
 
-	public CarrinhoCompra inserirCarrinhoo(CarrinhoCompra carrinhoCompra) {
+	public CarrinhoCompra inserirCarrinho(CarrinhoCompra carrinhoCompra) {
         try {
               save(carrinhoCompra);
+              return carrinhoCompra;
+        } catch (Exception e) {
+              e.printStackTrace();
+              return null;
+        }
+	}
+	
+	public CarrinhoCompra alterarCarrinho(CarrinhoCompra carrinhoCompra) {
+        try {
+              update(carrinhoCompra);
               return carrinhoCompra;
         } catch (Exception e) {
               e.printStackTrace();

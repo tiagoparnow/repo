@@ -19,9 +19,6 @@ public class LoginController extends AbstractController {
     private String email;
     private String senha;
     
-    //True se usuário está logado e false caso contrário
-    private boolean loggedIn;
-
     public void setUsuarioController(UsuarioController usuarioController) {
         this.usuarioController = usuarioController;
     }
@@ -42,20 +39,13 @@ public class LoginController extends AbstractController {
 		this.senha = senha;
 	}
 
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}
-
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
-	}
-	
 	private Usuario isValidLogin(String email) {
-         Usuario user = new UsuarioDAO().findByEmail(email);
-         
+        Usuario user = new UsuarioDAO().findByEmail(email);
+
         if (user == null) {
             return null;
         }
+        
         return user;
     }
     
@@ -80,7 +70,6 @@ public class LoginController extends AbstractController {
 			// como true e guardamos o usuario encontrado na variável
 			// usuarioLogado. Depois de tudo, mandamos o usuário
 			// para a página index.xhtml
-			setLoggedIn(true);
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 			request.getSession().setAttribute("user", user);
@@ -117,11 +106,37 @@ public class LoginController extends AbstractController {
 		// loggedIn como false para sinalizar que o usuário não está mais
 		// logado
 		usuarioController.setUser(null);
-		setLoggedIn(false);
 		// Mostramos um mensagem ao usuário e redirecionamos ele para a //página
 		// de login
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		request.getSession().setAttribute("user", null);
 		displayInfoMessage("Logout realizado com sucesso !");
 		return "index.xhtml?faces-redirect=true";
 	}
 
+	public boolean isAdmin() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		Usuario user = (Usuario) request.getSession().getAttribute("user");
+		if (user != null) {
+			return user.isAdmin();
+		}
+		return false;
+	}
+	
+	public boolean isLoggedIn() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		Usuario user = (Usuario) request.getSession().getAttribute("user");
+		if (user != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public String realizarLogin() {
+		return "login.xhtml?faces-redirect=true";
+	}
+	
 }
