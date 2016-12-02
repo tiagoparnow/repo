@@ -1,15 +1,7 @@
 package com.amazingbookstore.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 import com.amazingbookstore.dao.LivroDAO;
 import com.amazingbookstore.model.Livro;
@@ -20,6 +12,7 @@ public class ProdutoController extends AbstractController {
 
 	public static final String INJECTION_NAME = "#{produtoController}";
 	private Livro livro;
+	private Livro livroSelecionado;
 	
 	public ProdutoController() {
 		livro = new Livro();
@@ -33,6 +26,14 @@ public class ProdutoController extends AbstractController {
 		this.livro = livro;
 	}
 
+	public Livro getLivroSelecionado() {
+		return livroSelecionado;
+	}
+
+	public void setLivroSelecionado(Livro livroSelecionado) {
+		this.livroSelecionado = livroSelecionado;
+	}
+	
 	public void manterLivro() {
 		boolean sucesso = false;
 		if (livro.getIdLivro() == null) {
@@ -57,18 +58,10 @@ public class ProdutoController extends AbstractController {
 		displayInfoMessage("Produto removido com sucesso");
 	}
 
-	public void escolherLivro() {
-        Map<String,Object> options = new HashMap<String, Object>();
-        options.put("resizable", false);
-        options.put("draggable", false);
-        options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("selecionar-livro", options, null);
-    }
-	
-	public void onLivroChosen(SelectEvent event) {
-        Livro livro = (Livro) event.getObject();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Car Selected", "Id:" + livro.getIdLivro());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+	public void selecionarLivro() {
+		if (livroSelecionado != null) {
+			setLivro(livroSelecionado);
+		}
+	}
 	
 }

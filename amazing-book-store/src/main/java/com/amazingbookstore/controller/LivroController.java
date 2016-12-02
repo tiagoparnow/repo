@@ -6,6 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.amazingbookstore.dao.LivroDAO;
 import com.amazingbookstore.model.Livro;
@@ -23,6 +25,10 @@ public class LivroController extends AbstractController {
 	
 	@PostConstruct
     public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		titulo = (String) request.getSession().getAttribute("titulo");
+		request.getSession().removeAttribute("titulo");
 		this.listarLivros();
     }
 	
@@ -63,11 +69,18 @@ public class LivroController extends AbstractController {
 	}
 	
 	public void listarLivros() {
-		setLivros(new LivroDAO().findAll());
+		setLivros(new LivroDAO().list(codigo, titulo));
 	}
 
 	public String detalharLivro(Livro livro) {
 		livroDetalheController.setLivro(livro);
 		return "detalhe-livro.xhtml?faces-redirect=true";
+	}
+	
+	public String consultarLivro() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		request.getSession().setAttribute("titulo", titulo);
+		return "listagem-livros.xhtml?faces-redirect=true";
 	}
 }

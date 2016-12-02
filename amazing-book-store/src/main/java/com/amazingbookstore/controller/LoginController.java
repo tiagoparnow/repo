@@ -110,7 +110,7 @@ public class LoginController extends AbstractController {
 		// de login
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		request.getSession().setAttribute("user", null);
+		request.getSession().removeAttribute("user");
 		displayInfoMessage("Logout realizado com sucesso !");
 		return "index.xhtml?faces-redirect=true";
 	}

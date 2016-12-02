@@ -34,7 +34,18 @@ abstract class GenericDAO<T> implements Serializable {
 
     public void delete(Object id, Class<T> entity) {
         try {
+        	JPAUtil.getEntityManager().getTransaction().begin();
             JPAUtil.getEntityManager().remove(JPAUtil.getEntityManager().getReference(entity, id));
+            JPAUtil.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+        	JPAUtil.getEntityManager().getTransaction().rollback();
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+    
+    public void remove(T entity) {
+        try {
+            JPAUtil.getEntityManager().remove(JPAUtil.getEntityManager().contains(entity) ? entity : JPAUtil.getEntityManager().merge(entity));
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

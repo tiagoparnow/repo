@@ -7,10 +7,24 @@
 
 <h:head>
 	<title>Amazing Book Store</title>
+	<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/img/favicon.ico" />
 	<h:form id="formHead">
 		<div style="background-color:#999999; border-style: solid;">
-			<div>
-				<h:graphicImage library="img" name="icon.png"/>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<h:graphicImage library="img" name="icon.png"/>
+				</div>
+				<div class="ui-g-10" style="text-align: center;">
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<h:inputText value="#{livroController.titulo}" size="80" style="padding: 7px;"/>
+							<p:commandLink action="#{livroController.consultarLivro()}" ajax="false">
+								<p:commandButton ajax="false" type="button" title="Consultar" icon="ui-icon-search" style="border: none;"/>
+							</p:commandLink>
+						</div>
+					</div>
+					
+				</div>
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-1" >
@@ -23,9 +37,9 @@
 					</p:menubar>
 				</div>
 				<div class="ui-g-7" />
-				<div class="ui-g-2" style="text-align: center;">
+				<div class="ui-g-2" style="text-align: left;">
 					<p:commandLink action="#{loginController.realizarLogin()}" rendered="#{loginController.loggedIn == false}" ajax="false">
-						<h:panelGrid columns="2" >
+						<h:panelGrid columns="2">
 							<h:outputLabel style="font-size: smaller;">Olá.</h:outputLabel>
 							<h:outputLabel style="font-size: smaller;">Faça seu login</h:outputLabel>
 							<h:outputLabel style="font-weight: bold; font-size: smaller;">Entrar</h:outputLabel>

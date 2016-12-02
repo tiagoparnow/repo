@@ -1,10 +1,21 @@
 package com.amazingbookstore.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -55,10 +66,6 @@ public class Livro implements Serializable {
 	private String titulo;
 
 	private BigDecimal valor;
-
-	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="id.livro")
-	private List<Item> items;
 
 	public Livro() {
 	}
@@ -127,26 +134,5 @@ public class Livro implements Serializable {
 		this.valor = valor;
 	}
 
-	public List<Item> getItems() {
-		return this.items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public Item addItem(Item item) {
-		getItems().add(item);
-		item.getId().setLivro(this);
-
-		return item;
-	}
-
-	public Item removeItem(Item item) {
-		getItems().remove(item);
-		item.getId().setLivro(null);
-
-		return item;
-	}
 
 }

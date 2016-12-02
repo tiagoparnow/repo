@@ -72,12 +72,11 @@ public class LivroDetalheController extends AbstractController {
 		}
 		
 		if (usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() == 0) {
-			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(quantidade);
+			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(1);
 			usuarioController.getUser().getCarrinhoCompra().setValorTotal(livro.getValor().multiply(new BigDecimal(quantidade)));
 		} else {
-			Integer quantidadeTotal = usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() + quantidade;
 			BigDecimal valorTotal = livro.getValor().multiply(new BigDecimal(quantidade));
-			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(quantidadeTotal);
+			usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() + 1);
 			usuarioController.getUser().getCarrinhoCompra().setValorTotal(usuarioController.getUser().getCarrinhoCompra().getValorTotal().add(valorTotal));
 		}
 		

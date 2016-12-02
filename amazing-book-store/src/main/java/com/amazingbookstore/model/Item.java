@@ -12,12 +12,17 @@ import javax.persistence.*;
 @Table(name ="item", schema="site_mysql")
 @NamedQueries({
 				@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i"),
+				@NamedQuery(name="Item.findByCarShop", query=" SELECT i FROM Item i "
+														   + " WHERE i.id.carrinhoCompra.idCarrinhoCompras = :idCarrinhoCompras "),
 			  })
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Transient
 	public static final String FIND_ALL = "Item.findAll";
+	
+	@Transient
+	public static final String FIND_BY_CAR_SHOP = "Item.findByCarShop";
 	
 	@EmbeddedId
 	private ItemPK id;

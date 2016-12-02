@@ -56,7 +56,7 @@ public class LivroDAO extends GenericDAO<Livro> {
 			if (codigo != null && StringUtils.isNotEmpty(titulo)) {
 				return createNamedQuery(Livro.FIND_BY_ID_TITULO)
 						 .setParameter("idLivro", codigo)
-						 .setParameter("titulo", titulo)
+						 .setParameter("titulo", "%" + titulo + "%")
 						 .getResultList();
 			}
 			
@@ -67,7 +67,7 @@ public class LivroDAO extends GenericDAO<Livro> {
 			
 			if (StringUtils.isNotEmpty(titulo)) {
 				return createNamedQuery(Livro.FIND_BY_TITULO)
-						 .setParameter("titulo", titulo)
+						 .setParameter("titulo", "%" + titulo + "%")
 						 .getResultList();
 			}
 			

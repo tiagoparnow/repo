@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import com.amazingbookstore.dao.CarrinhoCompraDAO;
+import com.amazingbookstore.dao.ItemDAO;
 import com.amazingbookstore.model.CarrinhoCompra;
 import com.amazingbookstore.model.Item;
 
@@ -37,9 +38,7 @@ public class CarrinhoComprasController extends AbstractController {
 		if (usuarioController != null && usuarioController.getUser() != null
 				&& usuarioController.getUser().getCarrinhoCompra() != null) {
 			carrinho = usuarioController.getUser().getCarrinhoCompra();
-			if (carrinho != null && carrinho.getItems() != null) {
-				carrinho.getItems().size();
-			}
+			carrinho.setItems(new ItemDAO().listarItem(carrinho.getIdCarrinhoCompras()));
 		}
 	}
 
@@ -53,11 +52,12 @@ public class CarrinhoComprasController extends AbstractController {
 				&& usuarioController.getUser().getCarrinhoCompra() != null
 				&& usuarioController.getUser().getCarrinhoCompra().getItems() != null) {
 			usuarioController.getUser().getCarrinhoCompra().getItems().remove(item);
+			new ItemDAO().excluirItem(item);
 			if (usuarioController.getUser().getCarrinhoCompra().getItems() == null || usuarioController.getUser().getCarrinhoCompra().getItems().isEmpty()) {
 				usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(0);
 				usuarioController.getUser().getCarrinhoCompra().setValorTotal(BigDecimal.ZERO);
 			} else {
-				usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() - item.getQuantidade());
+				usuarioController.getUser().getCarrinhoCompra().setQuantidadeTotal(usuarioController.getUser().getCarrinhoCompra().getQuantidadeTotal() - 1);
 				usuarioController.getUser().getCarrinhoCompra().setValorTotal(usuarioController.getUser().getCarrinhoCompra().getValorTotal().subtract(item.getId().getLivro().getValor()));
 			}
 		}

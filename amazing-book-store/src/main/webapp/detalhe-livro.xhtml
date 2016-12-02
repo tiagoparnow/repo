@@ -68,7 +68,7 @@
         						
         				</div>
         				<div style="margin-top: 50px; text-align: center;">
-        					<p:commandButton value="Adicionar ao carrinho" actionListener="#{livroDetalheController.adicionarCarrinho()}" ajax="false"/>
+        					<p:commandButton value="Adicionar ao carrinho" actionListener="#{livroDetalheController.adicionarCarrinho()}" ajax="false" disabled="#{loginController.loggedIn == false}"/>
         				</div>
     				</p:layoutUnit>
 				</p:layout>
